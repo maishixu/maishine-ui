@@ -9,30 +9,31 @@
       'is-round': round,
       'is-circle': circle,
       'is-disabled': disabled,
-      'is-loading': loading,
+      'is-loading': loading
     }"
     :disabled="disabled"
     :autofocus="autofocus"
     :type="nativeType"
   >
     <span>
-      <slot />
+      <slot></slot>
     </span>
   </button>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { ButtonProps } from './types'
-
+import { ref } from 'vue';
+import type { ButtonProps } from './types';
+defineOptions({
+  name: 'MxButton'
+});
 withDefaults(defineProps<ButtonProps>(), {
-  nativeType: 'button',
-})
+  nativeType: 'button'
+});
 
-const _ref = ref<HTMLButtonElement>()
-
+const _ref = ref<HTMLButtonElement>();
 defineExpose({
-  ref: _ref,
-})
+  ref: _ref
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

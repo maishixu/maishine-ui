@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import Button from './components/Button/Button.vue';
-</script>
-
 <template>
-  <main>
+  <div>
     <Button ref="buttonRef">Test Button</Button>
     <Button plain>Plain Button</Button>
     <Button round>Round Button</Button>
@@ -21,11 +17,34 @@ import Button from './components/Button/Button.vue';
     <Button type="danger" plain>Danger</Button><br /><br />
     <Button size="large">Large</Button>
     <Button size="small">Small</Button><br /><br />
-  </main>
+
+    <Collapse v-model="openedValue" accordion>
+      <CollapseItem name="1">
+        <template #title><h1>具名插槽标题</h1></template>
+        <h1>第一个CollapseItem内容</h1>
+      </CollapseItem>
+      <CollapseItem name="2" title="普通标题">
+        <h2>第二个CollapseItem内容</h2>
+      </CollapseItem>
+    </Collapse>
+    <CollapseItem name="3" disabled title="禁用下拉框">
+      <h3>第三个CollapseItem内容</h3>
+    </CollapseItem>
+    {{ openedValue }}
+  </div>
 </template>
+<script setup lang="ts">
+import { ref } from 'vue';
+import Button from './components/Button/Button.vue';
+import Collapse from './components/Collapse/Collapse.vue';
+import CollapseItem from './components/Collapse/CollapseItem.vue';
+import type { NameType } from './components/Collapse/types';
+
+const openedValue = ref<NameType[]>(['1', '2']);
+</script>
 
 <style scoped>
-header {
+/* header {
   line-height: 1.5;
 }
 
@@ -50,5 +69,5 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
-}
+} */
 </style>

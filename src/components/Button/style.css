@@ -102,6 +102,7 @@
     --mx-button-disabled-bg-color: var(--mx-color-$(val)-light-5);
     --mx-button-disabled-border-color: var(--mx-color-$(val)-light-5);
   }
+  /* 复合选择器：主题+朴素 */
   .mx-button--$(val).is-plain {
     --mx-button-text-color: var(--mx-color-$(val));
     --mx-button-bg-color: var(--mx-color-$(val)-light-9);
