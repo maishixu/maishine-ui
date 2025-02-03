@@ -1,0 +1,56 @@
+/* 样式变量 */
+.mx-collapse {
+  --mx-collapse-border-color: var(--mx-border-color-light);
+  --mx-collapse-header-height: 48px;
+  --mx-collapse-header-bg-color: var(--mx-fill-color-blank);
+  --mx-collapse-header-text-color: var(--mx-text-color-primary);
+  --mx-collapse-header-font-size: 14px;
+  --mx-collapse-content-bg-color: var(--mx-fill-color-blank);
+  --mx-collapse-content-font-size: 13px;
+  --mx-collapse-content-text-color: var(--mx-text-color-primary);
+  --mx-collapse-disabled-text-color: var(--mx-disabled-text-color);
+  --mx-collapse-disabled-border-color: var(--mx-border-color-lighter);
+  border-top: 1px solid var(--mx-collapse-border-color);
+  /* border-bottom: 1px solid var(--mx-collapse-border-color); */
+}
+/* 头部样式 */
+.mx-collapse-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--mx-collapse-header-height);
+  line-height: var(--mx-collapse-header-height);
+  background-color: var(--mx-collapse-header-bg-color);
+  color: var(--mx-collapse-header-text-color);
+  cursor: pointer;
+  font-size: var(--mx-collapse-header-font-size);
+  font-weight: 500;
+  transition: border-bottom-color var(--mx-transition-duration);
+  outline: none;
+  border-bottom: 1px solid var(--mx-collapse-border-color);
+  &.is-disabled {
+    color: var(--mx-collapse-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+  }
+  &.is-active {
+    border-bottom-color: transparent;
+  }
+}
+/* 内容样式 */
+.mx-collapse-item__content {
+  will-change: height;
+  background-color: var(--mx-collapse-content-bg-color);
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: var(--mx-collapse-content-font-size);
+  color: var(--mx-collapse-content-text-color);
+  border-bottom: 1px solid var(--mx-collapse-border-color);
+  padding-bottom: 20px;
+  padding-top: 5px;
+}
+/* 过渡效果 */
+.slide-enter-active,
+.slide-leave-active {
+  transition: height var(--mx-transition-duration);
+}

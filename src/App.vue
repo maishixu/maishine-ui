@@ -17,21 +17,21 @@
     <Button type="danger" plain>Danger</Button><br /><br />
     <Button size="large">Large</Button>
     <Button size="small">Small</Button><br /><br />
-
-    <Collapse v-model="openedValue" accordion>
-      <CollapseItem name="1">
-        <template #title><h1>具名插槽标题</h1></template>
-        <h1>第一个CollapseItem内容</h1>
+  </div>
+  <div>
+    <Collapse :modelValue="openedValue" accordion>
+      <CollapseItem name="1" title="Collapse title 1">
+        <span>第一个CollapseItem内容</span>
       </CollapseItem>
-      <CollapseItem name="2" title="普通标题">
-        <h2>第二个CollapseItem内容</h2>
+      <CollapseItem name="2" title="Collapse title 2">
+        <span>第二个CollapseItem内容</span>
+      </CollapseItem>
+      <CollapseItem name="3" title="Collapse title 3" disabled>
+        <span>第三个CollapseItem内容</span>
       </CollapseItem>
     </Collapse>
-    <CollapseItem name="3" disabled title="禁用下拉框">
-      <h3>第三个CollapseItem内容</h3>
-    </CollapseItem>
-    {{ openedValue }}
   </div>
+  {{ openedValue }}
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -40,7 +40,7 @@ import Collapse from './components/Collapse/Collapse.vue';
 import CollapseItem from './components/Collapse/CollapseItem.vue';
 import type { NameType } from './components/Collapse/types';
 
-const openedValue = ref<NameType[]>(['1', '2']);
+const openedValue = ref<NameType[]>(['1']);
 </script>
 
 <style scoped>

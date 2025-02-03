@@ -12,7 +12,7 @@ import { collapseContextKey } from './types';
 defineOptions({ name: 'MxCollapse' });
 const props = defineProps<CollapseProps>();
 const emits = defineEmits<CollapseEmits>();
-// 1.初始展开效果
+// 1.初始展开数组
 const activeNames = ref<NameType[]>(props.modelValue);
 watch(
   () => props.modelValue,
@@ -35,12 +35,11 @@ const handleItemClick = (name: NameType) => {
   // 3.2 普通模式
   else {
     const index = activeNames.value.indexOf(name);
-    // 存在，删除数组中对应的一项
     if (index > -1) {
+      // 存在，删除数组中对应的一项
       activeNames.value.splice(index, 1);
-    }
-    // 不存在，添加到数组中
-    else {
+    } else {
+      // 不存在，添加到数组中
       activeNames.value.push(name);
     }
   }
