@@ -1,0 +1,132 @@
+.mx-button {
+  /* 样式变量 */
+  --mx-button-font-weight: var(--mx-font-weight-primary);
+  --mx-button-border-color: var(--mx-border-color);
+  --mx-button-bg-color: var(--mx-fill-color-blank);
+  --mx-button-text-color: var(--mx-text-color-regular);
+  --mx-button-disabled-text-color: var(--mx-disabled-text-color);
+  --mx-button-disabled-bg-color: var(--mx-fill-color-blank);
+  --mx-button-disabled-border-color: var(--mx-border-color-light);
+  --mx-button-hover-text-color: var(--mx-color-primary);
+  --mx-button-hover-bg-color: var(--mx-color-primary-light-9);
+  --mx-button-hover-border-color: var(--mx-color-primary-light-7);
+  --mx-button-active-text-color: var(--mx-button-hover-text-color);
+  --mx-button-active-border-color: var(--mx-color-primary);
+  --mx-button-active-bg-color: var(--mx-button-hover-bg-color);
+  --mx-button-outline-color: var(--mx-color-primary-light-5);
+  --mx-button-active-color: var(--mx-text-color-primary);
+}
+.mx-button {
+  /* 普通按钮 */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--mx-button-text-color);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.1s;
+  font-weight: var(--mx-button-font-weight);
+  user-select: none;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background-color: var(--mx-button-bg-color);
+  border: var(--mx-border);
+  border-color: var(--mx-button-border-color);
+  padding: 8px 15px;
+  font-size: var(--mx-font-size-base);
+  border-radius: var(--mx-border-radius-base);
+  & + & {
+    margin-left: 12px;
+  }
+  &:hover,
+  &:focus {
+    color: var(--mx-button-hover-text-color);
+    border-color: var(--mx-button-hover-border-color);
+    background-color: var(--mx-button-hover-bg-color);
+    outline: none;
+  }
+  &:active {
+    color: var(--mx-button-active-text-color);
+    border-color: var(--mx-button-active-border-color);
+    background-color: var(--mx-button-active-bg-color);
+    outline: none;
+  }
+  /* 朴素按钮 */
+  &.is-plain {
+    --mx-button-hover-text-color: var(--mx-color-primary);
+    --mx-button-hover-bg-color: var(--mx-fill-color-blank);
+    --mx-button-hover-border-color: var(--mx-color-primary);
+  }
+  /* 椭圆按钮 */
+  &.is-round {
+    border-radius: var(--mx-border-radius-round);
+  }
+  /* 圆形按钮 */
+  &.is-circle {
+    border-radius: 50%;
+    padding: 8px;
+  }
+  /* 失效按钮 */
+  &.is-disabled,
+  &.is-disabled:hover,
+  &.is-disabled:focus,
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:focus {
+    color: var(--mx-button-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+    background-color: var(--mx-button-disabled-bg-color);
+    border-color: var(--mx-button-disabled-border-color);
+  }
+}
+/* 不同主题按钮 */
+@each $val in primary, success, warning, info, danger {
+  .mx-button--$(val) {
+    --mx-button-text-color: var(--mx-color-white);
+    --mx-button-bg-color: var(--mx-color-$(val));
+    --mx-button-border-color: var(--mx-color-$(val));
+    --mx-button-outline-color: var(--mx-color-$(val)-light-5);
+    --mx-button-active-color: var(--mx-color-$(val)-dark-2);
+    --mx-button-hover-text-color: var(--mx-color-white);
+    --mx-button-hover-bg-color: var(--mx-color-$(val)-light-3);
+    --mx-button-hover-border-color: var(--mx-color-$(val)-light-3);
+    --mx-button-active-bg-color: var(--mx-color-$(val)-dark-2);
+    --mx-button-active-border-color: var(--mx-color-$(val)-dark-2);
+    --mx-button-disabled-text-color: var(--mx-color-white);
+    --mx-button-disabled-bg-color: var(--mx-color-$(val)-light-5);
+    --mx-button-disabled-border-color: var(--mx-color-$(val)-light-5);
+  }
+  .mx-button--$(val).is-plain {
+    --mx-button-text-color: var(--mx-color-$(val));
+    --mx-button-bg-color: var(--mx-color-$(val)-light-9);
+    --mx-button-border-color: var(--mx-color-$(val)-light-5);
+    --mx-button-hover-text-color: var(--mx-color-white);
+    --mx-button-hover-bg-color: var(--mx-color-$(val));
+    --mx-button-hover-border-color: var(--mx-color-$(val));
+    --mx-button-active-text-color: var(--mx-color-white);
+    --mx-button-disabled-text-color: var(--mx-color-$(val)-light-5);
+    --mx-button-disabled-bg-color: var(--mx-color-$(val)-light-9);
+    --mx-button-disabled-border-color: var(--mx-color-$(val)-light-8);
+  }
+}
+/* 不同大小按钮 */
+.mx-button--large {
+  --mx-button-size: 40px;
+  height: var(--mx-button-size);
+  padding: 12px 19px;
+  font-size: var(--mx-font-size-base);
+  border-radius: var(--mx-border-radius-base);
+}
+.mx-button--small {
+  --mx-button-size: 24px;
+  height: var(--mx-button-size);
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: calc(var(--mx-border-radius-base) - 1px);
+}

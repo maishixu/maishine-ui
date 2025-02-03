@@ -1,0 +1,63 @@
+:root {
+  /* colors */
+  --mx-color-white: #ffffff;
+  --mx-color-black: #000000;
+  --colors: (primary: #409eff, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+
+  @each $val, $color in var(--colors) {
+    --mx-color-$(val): $(color);
+    @for $i from 3 to 9 by 2 {
+      --mx-color-$(val)-light-$(i): mix(#fff, $(color), .$(i));
+    }
+    --mx-color-$(val)-light-8: mix(#fff, $(color), 0.8);
+    --mx-color-$(val)-dark-2: mix(#000, $(color), 0.2);
+  }
+
+  --mx-bg-color: #ffffff;
+  --mx-bg-color-page: #f2f3f5;
+  --mx-bg-color-overlay: #ffffff;
+  --mx-text-color-primary: #303133;
+  --mx-text-color-regular: #606266;
+  --mx-text-color-secondary: #909399;
+  --mx-text-color-placeholder: #a8abb2;
+  --mx-text-color-disabled: #c0c4cc;
+  --mx-border-color: #dcdfe6;
+  --mx-border-color-light: #e4e7ed;
+  --mx-border-color-lighter: #ebeef5;
+  --mx-border-color-extra-light: #f2f6fc;
+  --mx-border-color-dark: #d4d7de;
+  --mx-border-color-darker: #cdd0d6;
+  --mx-fill-color: #f0f2f5;
+  --mx-fill-color-light: #f5f7fa;
+  --mx-fill-color-lighter: #fafafa;
+  --mx-fill-color-extra-light: #fafcff;
+  --mx-fill-color-dark: #ebedf0;
+  --mx-fill-color-darker: #e6e8eb;
+  --mx-fill-color-blank: #ffffff;
+
+  /* border */
+  --mx-border-width: 1px;
+  --mx-border-style: solid;
+  --mx-border-color-hover: var(--mx-text-color-disabled);
+  --mx-border: var(--mx-border-width) var(--mx-border-style) var(--mx-border-color);
+  --mx-border-radius-base: 4px;
+  --mx-border-radius-small: 2px;
+  --mx-border-radius-round: 20px;
+  --mx-border-radius-circle: 100%;
+
+  /* font */
+  --mx-font-size-extra-large: 20px;
+  --mx-font-size-large: 18px;
+  --mx-font-size-medium: 16px;
+  --mx-font-size-base: 14px;
+  --mx-font-size-small: 13px;
+  --mx-font-size-extra-small: 12px;
+  --mx-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '\5fae\8f6f\96c5\9ed1', Arial, sans-serif;
+  --mx-font-weight-primary: 500;
+
+  /* disabled */
+  --mx-disabled-bg-color: var(--mx-fill-color-light);
+  --mx-disabled-text-color: var(--mx-text-color-placeholder);
+  --mx-disabled-border-color: var(--mx-border-color-light);
+}
