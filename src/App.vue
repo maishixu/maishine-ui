@@ -16,7 +16,9 @@
     <Button type="warning" plain>Warning</Button>
     <Button type="danger" plain>Danger</Button><br /><br />
     <Button size="large">Large</Button>
-    <Button size="small">Small</Button><br /><br />
+    <Button size="small">Small</Button>
+    <Button loading>Loading</Button>
+    <Button icon="magnifying-glass">Icon</Button><br /><br />
   </div>
   <div>
     <Collapse :modelValue="openedValue" accordion>

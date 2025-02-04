@@ -56,6 +56,10 @@
     background-color: var(--mx-button-active-bg-color);
     outline: none;
   }
+  /* 图标和文字保持一定距离 */
+  [class*='mx-icon'] + span {
+    margin-left: 6px;
+  }
   /* 朴素按钮 */
   &.is-plain {
     --mx-button-hover-text-color: var(--mx-color-primary);
