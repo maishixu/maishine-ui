@@ -1,0 +1,15 @@
+.mx-icon {
+  --mx-icon-color: inherit;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  fill: currentColor; /* SVG 继承父元素的颜色 */
+  color: var(--mx-icon-color);
+  font-size: inherit;
+}
+@each $val in primary, success, warning, info, danger {
+  .mx-icon--$(val) {
+    --mx-icon-color: var(--mx-color-$(val));
+  }
+}
