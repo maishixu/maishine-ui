@@ -38,6 +38,14 @@
     <Icon icon="music" color="red"></Icon>
     <Icon icon="phone"></Icon>
   </div>
+  <div>
+    <Alert type="success" title="Success Alert"></Alert>
+    <Alert type="info" title="Info Alert"></Alert>
+    <Alert type="warning" title="Warning Alert" effect="dark"></Alert>
+    <Alert type="danger" title="Error Alert" effect="dark"></Alert>
+    <Alert type="info" title="Custom Text Alert" closeText="关闭"></Alert>
+    <Alert type="info" title="UnClosable Alert" :closable="false" effect="dark"></Alert>
+  </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -45,6 +53,7 @@ import Button from './components/Button/Button.vue';
 import Collapse from './components/Collapse/Collapse.vue';
 import CollapseItem from './components/Collapse/CollapseItem.vue';
 import Icon from './components/Icon/Icon.vue';
+import Alert from './components/Alert/Alert.vue';
 
 import type { NameType } from './components/Collapse/types';
 

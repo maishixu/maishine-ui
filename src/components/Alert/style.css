@@ -1,0 +1,74 @@
+.mx-alert {
+  /* 样式变量 */
+  --mx-alert-padding: 8px 16px;
+  --mx-alert-border-radius-base: var(--mx-border-radius-base);
+  --mx-alert-bg-color: var(--mx-color-white);
+  --mx-alert-content-font-size: 13px;
+  --mx-alert-close-font-size: 14px;
+  --mx-alert-icon-size: 16px;
+  --mx-alert-text-color: var(--mx-text-color-primary);
+  --mx-alert-top-margin: 20px;
+}
+.mx-alert {
+  /* 默认样式 */
+  padding: var(--mx-alert-padding);
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: var(--mx-alert-border-radius-base);
+  position: relative;
+  background-color: var(--mx-alert-bg-color);
+  overflow: hidden;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--mx-transition-duration);
+  margin-top: var(--mx-alert-top-margin);
+  /* 标题 */
+  .mx-alert__content {
+    font-size: var(--mx-alert-content-font-size);
+    color: var(--mx-alert-text-color);
+    line-height: 18px;
+    vertical-align: text-top;
+  }
+  /* 关闭 */
+  .mx-alert__close {
+    font-size: var(--mx-alert-close-font-size);
+    line-height: 18px;
+    opacity: 1;
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    cursor: pointer;
+    vertical-align: top;
+    .mx-icon {
+      vertical-align: top;
+      padding-top: 2px;
+    }
+  }
+  &.mx-alert__light {
+    .mx-alert__close {
+      color: var(--mx-text-color-placeholder);
+    }
+  }
+  &.mx-alert__dark {
+    .mx-alert__close {
+      color: var(--mx-color-white);
+    }
+  }
+}
+
+.mx-alert-fade-enter-from,
+.mx-alert-fade-leave-to {
+  opacity: 0;
+}
+
+@each $val in success, warning, info, danger {
+  .mx-alert__$(val).mx-alert__light {
+    --mx-alert-text-color: var(--mx-color-$(val));
+    --mx-alert-bg-color: var(--mx-color-$(val)-light-9);
+  }
+  .mx-alert__$(val).mx-alert__dark {
+    --mx-alert-text-color: var(--mx-color-white);
+    --mx-alert-bg-color: var(--mx-color-$(val));
+  }
+}
