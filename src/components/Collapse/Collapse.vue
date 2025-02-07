@@ -28,24 +28,27 @@ if (props.accordion && activeNames.value.length > 1) {
 }
 // 3.处理面板展开收缩
 const handleItemClick = (name: NameType) => {
+  let _activeNames = [...activeNames.value];
   // 3.1 手风琴模式
   if (props.accordion) {
-    activeNames.value = [activeNames.value[0] === name ? '' : name];
+    _activeNames = [_activeNames[0] === name ? '' : name];
+    activeNames.value = _activeNames;
   }
   // 3.2 普通模式
   else {
-    const index = activeNames.value.indexOf(name);
+    const index = _activeNames.indexOf(name);
     if (index > -1) {
       // 存在，删除数组中对应的一项
-      activeNames.value.splice(index, 1);
+      _activeNames.splice(index, 1);
     } else {
       // 不存在，添加到数组中
-      activeNames.value.push(name);
+      _activeNames.push(name);
     }
+    activeNames.value = _activeNames;
   }
   // 3.3 双向绑定
   emits('update:modelValue', activeNames.value);
-  emits('change', activeNames.value);
+  emits('change', _activeNames);
 };
 provide(collapseContextKey, { activeNames, handleItemClick });
 </script>
