@@ -1,7 +1,23 @@
 <template>
   <div>
-    <Button ref="buttonRef">Test Button</Button>
-    <Button plain>Plain Button</Button>
+    <Tooltip
+      content="Hello Tooltip by mx"
+      placement="right"
+      trigger="hover"
+      ref="TooltipRef"
+      :popperOptions="{ placement: 'bottom', strategy: 'fixed' }"
+      transition="fade"
+      :open-delay="1000"
+      :close-delay="1000"
+      >Tooltip
+      <template #content>
+        <h2>Tooltip custom</h2>
+      </template>
+    </Tooltip>
+  </div>
+  <div>
+    <Button ref="buttonRef" @click="TooltipRef?.show">Test Button</Button>
+    <Button plain @click="TooltipRef?.hide">Plain Button</Button>
     <Button round>Round Button</Button>
     <Button circle>MX</Button>
     <Button disabled>Disabled Button</Button><br /><br />
@@ -54,10 +70,13 @@ import Collapse from './components/Collapse/Collapse.vue';
 import CollapseItem from './components/Collapse/CollapseItem.vue';
 import Icon from './components/Icon/Icon.vue';
 import Alert from './components/Alert/Alert.vue';
+import Tooltip from './components/Tooltip/Tooltip.vue';
 
 import type { NameType } from './components/Collapse/types';
+import type { TooltipInstance } from './components/Tooltip/types';
 
 const openedValue = ref<NameType[]>(['1']);
+const TooltipRef = ref<TooltipInstance | null>(null);
 </script>
 
 <style scoped>
