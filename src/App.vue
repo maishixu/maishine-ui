@@ -5,14 +5,10 @@
       placement="right"
       trigger="hover"
       ref="TooltipRef"
-      :popperOptions="{ placement: 'bottom', strategy: 'fixed' }"
+      :popperOptions="{ placement: 'right', strategy: 'fixed' }"
       transition="fade"
-      :open-delay="1000"
-      :close-delay="1000"
-      >Tooltip
-      <template #content>
-        <h2>Tooltip custom</h2>
-      </template>
+    >
+      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
     </Tooltip>
   </div>
   <div>
@@ -80,14 +76,16 @@ const TooltipRef = ref<TooltipInstance | null>(null);
 </script>
 
 <style scoped>
+.logo {
+  display: block;
+  margin: 0 auto 1rem;
+  border: green 1px solid;
+}
 /* header {
   line-height: 1.5;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+
 
 @media (min-width: 1024px) {
   header {

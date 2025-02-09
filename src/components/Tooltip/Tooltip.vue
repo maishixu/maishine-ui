@@ -9,6 +9,7 @@
       <div class="mx-tooltip__popper" ref="popperNode" v-if="isOpen">
         {{ content }}
         <slot name="content"></slot>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </Transition>
   </div>
@@ -41,7 +42,15 @@ let popperInstance: null | Instance = null;
 const popperOptions = computed(() => {
   return {
     placement: props.placement,
-    ...props.popperOptions
+    ...props.popperOptions,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8]
+        }
+      }
+    ]
   };
 });
 // click 函数
@@ -53,6 +62,7 @@ const togglePopper = () => {
   }
 };
 // mouse 函数
+// *debounce: 延迟内部回调，知道延迟时间内回调没有再被调用为止
 const openDebounce = debounce(() => {
   isOpen.value = true;
   emits('visible-change', isOpen.value);
@@ -125,16 +135,4 @@ defineExpose<TooltipInstance>({
 });
 </script>
 
-<style scoped>
-.mx-tooltip {
-  display: inline-block;
-  background-color: #bfa;
-}
-.mx-tooltip__trigger {
-  /* display: inline-block; */
-  background-color: skyblue;
-}
-.mx-tooltip__popper {
-  background-color: khaki;
-}
-</style>
+<style scoped></style>

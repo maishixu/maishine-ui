@@ -1,4 +1,73 @@
 .mx-tooltip {
+  /* 变量 */
+  --mx-popover-bg-color: var(--mx-bg-color-overlay);
+  --mx-popover-text-color: var(--mx-text-color-regular)
+    --mx-popover-font-size: var(--mx-font-size-base);
+  --mx-popover-border-color: var(--mx-border-color);
+  --mx-popover-padding: 12px;
+  --mx-popover-border-radius: 4px;
+  display: inline-block;
+}
+.mx-tooltip {
+  .mx-tooltip__popper {
+    background: var(--mx-popover-bg-color);
+    border-radius: var(--mx-popover-border-radius);
+    border: 1px solid var(--mx-popover-border-color);
+    padding: var(--mx-popover-padding);
+    color: var(--mx-popover-text-color);
+    line-height: 1.4;
+    text-align: justify;
+    font-size: var(--mx-popover-font-size);
+    box-shadow: var(--mx-box-shadow-light);
+    word-break: break-all;
+    box-sizing: border-box;
+    z-index: 1000;
+    #arrow,
+    #arrow::before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: inherit;
+    }
+    #arrow {
+      visibility: hidden;
+    }
+    #arrow::before {
+      visibility: visible;
+      content: '';
+      transform: rotate(45deg);
+    }
+    /* 调整箭头位置 */
+    &[data-popper-placement^='top'] > #arrow {
+      bottom: -5px;
+    }
+    &[data-popper-placement^='bottom'] > #arrow {
+      top: -5px;
+    }
+    &[data-popper-placement^='left'] > #arrow {
+      right: -5px;
+    }
+    &[data-popper-placement^='right'] > #arrow {
+      left: -5px;
+    }
+    /* 为箭头添加边框 */
+    &[data-popper-placement^='top'] > #arrow::before {
+      border-right: 1px solid var(--mx-popover-border-color);
+      border-bottom: 1px solid var(--mx-popover-border-color);
+    }
+    &[data-popper-placement^='bottom'] > #arrow::before {
+      border-left: 1px solid var(--mx-popover-border-color);
+      border-top: 1px solid var(--mx-popover-border-color);
+    }
+    &[data-popper-placement^='left'] > #arrow::before {
+      border-right: 1px solid var(--mx-popover-border-color);
+      border-top: 1px solid var(--mx-popover-border-color);
+    }
+    &[data-popper-placement^='right'] > #arrow::before {
+      border-left: 1px solid var(--mx-popover-border-color);
+      border-bottom: 1px solid var(--mx-popover-border-color);
+    }
+  }
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity var(--mx-transition-duration);
