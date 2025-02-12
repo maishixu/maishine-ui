@@ -12,8 +12,24 @@
     </Tooltip>
   </div>
   <div>
-    <Button ref="buttonRef" @click="TooltipRef?.show">Test Button</Button>
-    <Button plain @click="TooltipRef?.hide">Plain Button</Button>
+    <Dropdown
+      ref="DropdownRef"
+      placement="bottom"
+      trigger="click"
+      transition="fade"
+      :menu-options="[
+        { label: h('b', 'item1'), key: '1' },
+        { label: 'item2', key: '2' },
+        { label: 'item3', key: '3', divided: true },
+        { label: 'item4', key: '4', disabled: true }
+      ]"
+    >
+      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    </Dropdown>
+  </div>
+  <div>
+    <Button ref="buttonRef" @click="DropdownRef?.show">Test Button</Button>
+    <Button plain @click="DropdownRef?.hide">Plain Button</Button>
     <Button round>Round Button</Button>
     <Button circle>MX</Button>
     <Button disabled>Disabled Button</Button><br /><br />
@@ -60,19 +76,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 import Button from './components/Button/Button.vue';
 import Collapse from './components/Collapse/Collapse.vue';
 import CollapseItem from './components/Collapse/CollapseItem.vue';
 import Icon from './components/Icon/Icon.vue';
 import Alert from './components/Alert/Alert.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
-
+import Dropdown from './components/Dropdown/Dropdown.vue';
 import type { NameType } from './components/Collapse/types';
-import type { TooltipInstance } from './components/Tooltip/types';
+import type { DropdownInstance } from './components/Dropdown/types';
 
 const openedValue = ref<NameType[]>(['1']);
-const TooltipRef = ref<TooltipInstance | null>(null);
+const DropdownRef = ref<DropdownInstance | null>(null);
 </script>
 
 <style scoped>
