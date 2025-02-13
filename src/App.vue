@@ -15,7 +15,7 @@
     <Dropdown
       ref="DropdownRef"
       placement="bottom"
-      trigger="click"
+      trigger="hover"
       transition="fade"
       :menu-options="[
         { label: h('b', 'item1'), key: '1' },
