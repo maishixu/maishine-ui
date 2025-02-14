@@ -97,9 +97,9 @@ const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
 
 onMounted(() => {
-  createMessage({ message: 'hello message test', duration: 0, showClose: true });
-  createMessage({ message: 'hello message test 1', duration: 0 });
-  createMessage({ message: 'hello message test 2', duration: 0 });
+  createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
+  createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
+  createMessage({ message: 'hello message test 2', duration: 0, showClose: true, type: 'danger' });
 });
 </script>
 
