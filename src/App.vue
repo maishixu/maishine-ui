@@ -27,6 +27,9 @@
       <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
     </Dropdown>
   </div>
+  <!-- <div>
+    <Message message="hello message" show-close></Message>
+  </div> -->
   <div>
     <Button ref="buttonRef" @click="DropdownRef?.show">Test Button</Button>
     <Button plain @click="DropdownRef?.hide">Plain Button</Button>
@@ -76,7 +79,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { h, ref } from 'vue';
+import { h, onMounted, ref } from 'vue';
+
 import Button from './components/Button/Button.vue';
 import Collapse from './components/Collapse/Collapse.vue';
 import CollapseItem from './components/Collapse/CollapseItem.vue';
@@ -84,11 +88,19 @@ import Icon from './components/Icon/Icon.vue';
 import Alert from './components/Alert/Alert.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
 import Dropdown from './components/Dropdown/Dropdown.vue';
+import { createMessage } from './components/Message/method';
+
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 
 const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
+
+onMounted(() => {
+  createMessage({ message: 'hello message test', duration: 0, showClose: true });
+  createMessage({ message: 'hello message test 1', duration: 0 });
+  createMessage({ message: 'hello message test 2', duration: 0 });
+});
 </script>
 
 <style scoped>
