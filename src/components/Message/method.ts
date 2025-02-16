@@ -4,7 +4,7 @@ import type { CreateMessageProps, MessageInstance } from './types';
 import useZIndex from '@/hooks/UseZIndex';
 const instances: MessageInstance[] = shallowReactive([]);
 let seed = 1;
-// 创建 Message 函数
+// 1.创建 Message 实例
 export const createMessage = (props: CreateMessageProps) => {
   const id = `message_${seed++}`;
   const container = document.createElement('div');
@@ -43,13 +43,19 @@ export const createMessage = (props: CreateMessageProps) => {
   instances.push(instance);
   return instance;
 };
-// 获取上一个实例
+// 2.获取上一个实例
 export const findLastMessage = () => {
   return instances.at(-1);
 };
-// 获取上一个实例底边偏移
+// 3.获取上一个实例底边偏移
 export const getLastBottomOffset = (id: string) => {
   const idx = instances.findIndex((item) => item.id === id);
   if (idx <= 0) return 0;
   else return instances[idx - 1].vm.exposed!.bottomOffset.value;
+};
+// 4.清空所有实例
+export const destroyAllMessage = () => {
+  instances.forEach((item) => {
+    item.destroy();
+  });
 };
