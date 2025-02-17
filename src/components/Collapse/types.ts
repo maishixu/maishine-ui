@@ -21,5 +21,5 @@ export const collapseContextKey: InjectionKey<CollapseContext> = Symbol();
 // 3.触发事件函数
 export interface CollapseEmits {
   (e: 'update:modelValue', values: NameType[]): void;
-  (e: 'change', values: NameType[]): void;
+  (e: 'change', values: NameType[] | string | number): void;
 }

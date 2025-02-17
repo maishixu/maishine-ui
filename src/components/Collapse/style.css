@@ -12,7 +12,7 @@
   --mx-collapse-disabled-text-color: var(--mx-disabled-text-color);
   --mx-collapse-disabled-border-color: var(--mx-border-color-lighter);
   border-top: 1px solid var(--mx-collapse-border-color);
-  /* border-bottom: 1px solid var(--mx-collapse-border-color); */
+  border-bottom: 1px solid var(--mx-collapse-border-color);
   margin-bottom: var(--mx-collapse-margin-bottom);
 }
 /* 头部样式 */

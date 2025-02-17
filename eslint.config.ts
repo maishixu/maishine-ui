@@ -25,7 +25,8 @@ export default defineConfigWithVueTs(
   {
     rules: {
       'vue/multi-word-component-names': 'off', // 禁用多单词组件名检测
-      '@typescript-eslint/no-explicit-any': 'off' // 禁用 any 类型检查
+      '@typescript-eslint/no-explicit-any': 'off', // 禁用 any 类型检查
+      'vue/block-lang': 'off'
     }
   }
 );

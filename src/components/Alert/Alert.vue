@@ -7,6 +7,7 @@
     >
       <span class="mx-alert__content">
         {{ title }}
+        <span><slot></slot></span>
       </span>
       <div class="mx-alert__close" @click="isDisplay = false" v-if="closable">
         <Icon v-if="!closeText" icon="xmark"></Icon>
