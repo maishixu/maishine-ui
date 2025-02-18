@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Input v-model="InputValue" clearable show-password></Input>
+  </div>
+  <div>
     <Tooltip
       content="Hello Tooltip by mx"
       placement="right"
@@ -89,12 +92,13 @@ import Alert from './components/Alert/Alert.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
 import Dropdown from './components/Dropdown/Dropdown.vue';
 import { createMessage } from './components/Message/method';
+import Input from './components/Input/Input.vue';
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 
 const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
-
+const InputValue = ref('');
 onMounted(() => {
   createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
