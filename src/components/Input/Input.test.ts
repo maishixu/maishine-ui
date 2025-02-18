@@ -62,7 +62,7 @@ describe('Input', () => {
     await input.trigger('click');
     expect(wrapper.find('.mx-input__clear').exists()).toBeTruthy();
     // 点击图标一键清空
-    await wrapper.get('.mx-input__clear').trigger('mousedown');
+    await wrapper.get('.mx-input__clear').trigger('click');
     expect(wrapper.find('.mx-input__clear').exists()).toBeFalsy();
     expect(input.element.value).toBe('');
 
@@ -96,7 +96,7 @@ describe('Input', () => {
     expect(wrapper.get('.mx-input__password').attributes('icon')).toBe('eye-slash');
     // 点击图标，切换显示模式
     const eyeIcon = wrapper.get('.mx-input__password');
-    await eyeIcon.trigger('mousedown');
+    await eyeIcon.trigger('click');
     expect(wrapper.get('.mx-input__password').attributes('icon')).toBe('eye');
     expect(wrapper.get('input').element.type).toBe('text');
   });

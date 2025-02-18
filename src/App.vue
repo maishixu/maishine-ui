@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Input v-model="InputValue" clearable show-password></Input>
+    <Input v-model="InputValue1" clearable></Input>
+    <Input v-model="InputValue2" show-password></Input>
   </div>
   <div>
     <Tooltip
@@ -98,7 +99,8 @@ import type { DropdownInstance } from './components/Dropdown/types';
 
 const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
-const InputValue = ref('');
+const InputValue1 = ref('test1');
+const InputValue2 = ref('test2');
 onMounted(() => {
   createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
