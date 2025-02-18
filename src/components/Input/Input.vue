@@ -64,7 +64,7 @@
         </span>
       </div>
       <!-- 右外 -->
-      <div v-if="$slots.append" class="mx-append">
+      <div v-if="$slots.append" class="mx-input__append">
         <slot name="append"></slot>
       </div>
     </template>

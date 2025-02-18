@@ -226,3 +226,7 @@
     }
   }
 }
+/* 去掉默认的图标 */
+input[type='password']::-ms-reveal {
+  display: none;
+}

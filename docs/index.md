@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: 'X-Element'
-  text: ''
+  text: '轻量组件库'
   tagline: 基于 Vue 3，面向设计师和开发者的组件库
   actions:
     - theme: brand

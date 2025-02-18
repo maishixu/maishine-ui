@@ -11,9 +11,15 @@
   --vp-button-brand-active-bg: var(--vp-c-brand-darker);
 
   --vp-code-color: #303133;
+  --vp-c-tip-1: var(--vp-c-brand-darker);
+
   /* demo 代码段背景色覆盖 */
   --component-preview-bg: var(--vp-code-block-bg);
   --component-preview-soft: var(--vp-code-block-bg-light);
+}
+.custom-block.note a,
+.custom-block.note code {
+  color: var(--vp-c-brand-darker);
 }
 /* 消除 reset.css 样式的影响 */
 body {

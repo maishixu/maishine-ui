@@ -1,5 +1,15 @@
 <template>
   <div>
+    <Switch
+      v-model="SwitchValue"
+      active-text="ON"
+      inactive-text="OFF"
+      active-value="right"
+      inactive-value="wrong"
+    ></Switch>
+    <span>{{ SwitchValue }}</span>
+  </div>
+  <div>
     <Input v-model="InputValue1" clearable></Input>
     <Input v-model="InputValue2" show-password></Input>
   </div>
@@ -94,6 +104,8 @@ import Tooltip from './components/Tooltip/Tooltip.vue';
 import Dropdown from './components/Dropdown/Dropdown.vue';
 import { createMessage } from './components/Message/method';
 import Input from './components/Input/Input.vue';
+import Switch from './components/Switch/Switch.vue';
+
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 
@@ -101,6 +113,7 @@ const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
 const InputValue1 = ref('test1');
 const InputValue2 = ref('test2');
+const SwitchValue = ref('wrong');
 onMounted(() => {
   createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
