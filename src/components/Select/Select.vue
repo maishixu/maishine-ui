@@ -20,6 +20,7 @@
         :readonly="!filterable || !isDropdownShow"
         ref="inputRef"
         @input="debounceOnFilter"
+        @keydown="handleKeydown"
       >
         <template #suffix>
           <Icon
@@ -40,7 +41,8 @@
               class="mx-select__menu-item"
               :class="{
                 'is-disabled': item.disabled,
-                'is-selected': state.selectedOption?.value === item.value
+                'is-selected': state.selectedOption?.value === item.value,
+                'is-highlight': state.highlightIndex === index
               }"
               :id="`select-item-${item.value}`"
               @click="itemSelect(item)"
@@ -66,7 +68,7 @@ import type { TooltipInstance } from '../Tooltip/types';
 import type { InputInstance } from '../Input/types';
 import { isFunction, debounce } from 'lodash-es';
 defineOptions({ name: 'MxSelect' });
-const props = defineProps<SelectProps>();
+const props = withDefaults(defineProps<SelectProps>(), { options: () => [] });
 const emits = defineEmits<SelectEmits>();
 
 const isDropdownShow = ref(false);
@@ -90,6 +92,7 @@ const popperOptions: any = {
       }
     },
     {
+      // 设置下拉框的宽度和父元素宽度相等
       name: 'sameWidth',
       enabled: true,
       fn: ({ state }: { state: any }) => {
@@ -110,7 +113,8 @@ const state = reactive<SelectStates>({
   inputValue: initialOption ? initialOption.label : '',
   selectedOption: initialOption ? initialOption : null,
   isHover: false,
-  loading: false
+  loading: false,
+  highlightIndex: -1
 });
 
 const generateFilterOptions = async (searchValue: string) => {
@@ -132,36 +136,46 @@ const generateFilterOptions = async (searchValue: string) => {
     // 默认搜索
     filterOptions.value = props.options?.filter((item) => item.label.includes(searchValue));
   }
+  state.highlightIndex = -1;
 };
-const onFilter = () => generateFilterOptions(state.inputValue);
-const debounceOnFilter = debounce(() => {
-  onFilter();
-}, timeout.value);
 
+const debounceOnFilter = debounce(() => {
+  generateFilterOptions(state.inputValue);
+}, timeout.value);
+// 计算占位符
 const filterPlaceholder = computed(() => {
+  // 假如支持筛选功能
   if (props.filterable && state.selectedOption && isDropdownShow) {
     return state.selectedOption.label;
-  } else {
+  }
+  // 默认状态
+  else {
     return props.placeholder;
   }
 });
-const controlDropdown = (show: boolean) => {
-  if (show) {
+// 控制开关
+const controlDropdown = (value: boolean) => {
+  // 1.打开
+  if (value) {
     // 如果时 filter 模式，先清空值然后重新过滤
     if (props.filterable) {
       state.inputValue = '';
       generateFilterOptions(state.inputValue);
     }
     tooltipRef.value.show();
-  } else {
+  }
+  // 2.关闭
+  else {
     if (props.filterable) {
       state.inputValue = state.selectedOption ? state.selectedOption.label : '';
     }
     tooltipRef.value.hide();
+    state.highlightIndex = -1;
   }
-  isDropdownShow.value = show;
-  emits('visible-change', show);
+  isDropdownShow.value = value;
+  emits('visible-change', value);
 };
+// 翻转状态
 const toggleDropdown = () => {
   if (props.disabled) return;
   if (isDropdownShow.value) {
@@ -170,6 +184,7 @@ const toggleDropdown = () => {
     controlDropdown(true);
   }
 };
+// 选择功能函数
 const itemSelect = (e: SelectOption) => {
   if (e.disabled) return;
   state.inputValue = e.label;
@@ -178,7 +193,7 @@ const itemSelect = (e: SelectOption) => {
   emits('change', e.value);
   emits('update:modelValue', e.value);
 };
-
+// 支持一键清空
 const showClearIcon = computed(() => {
   return props.clearable && state.isHover && state.inputValue && state.selectedOption;
 });
@@ -188,6 +203,44 @@ const onClear = () => {
   emits('update:modelValue', '');
   emits('change', '');
   emits('clear');
+};
+// 支持键盘操作
+const handleKeydown = (e: KeyboardEvent) => {
+  switch (e.key) {
+    case 'Enter':
+      if (!isDropdownShow.value) controlDropdown(true);
+      else {
+        if (state.highlightIndex !== -1 && filterOptions.value[state.highlightIndex]) {
+          itemSelect(filterOptions.value[state.highlightIndex]);
+          controlDropdown(false);
+        } else {
+          controlDropdown(false);
+        }
+      }
+      break;
+    case 'Escape':
+      if (isDropdownShow.value) controlDropdown(false);
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      if (filterOptions.value.length > 0) {
+        if (state.highlightIndex === -1 || state.highlightIndex === 0) {
+          state.highlightIndex = filterOptions.value.length - 1;
+        } else {
+          state.highlightIndex--;
+        }
+      }
+      break;
+    case 'ArrowDown':
+      e.preventDefault();
+      if (filterOptions.value.length > 0) {
+        if (state.highlightIndex === -1 || state.highlightIndex === props.options.length - 1) {
+          state.highlightIndex = 0;
+        } else {
+          state.highlightIndex++;
+        }
+      }
+  }
 };
 </script>
 

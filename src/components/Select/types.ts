@@ -32,4 +32,5 @@ export interface SelectStates {
   selectedOption: null | SelectOption;
   isHover: boolean;
   loading: boolean;
+  highlightIndex: number;
 }
