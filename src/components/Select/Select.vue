@@ -19,7 +19,7 @@
         :placeholder="filterPlaceholder"
         :readonly="!filterable || !isDropdownShow"
         ref="inputRef"
-        @input="onFilter"
+        @input="debounceOnFilter"
       >
         <template #suffix>
           <Icon
@@ -32,7 +32,9 @@
         </template>
       </Input>
       <template #content>
-        <ul class="mx-select__menu">
+        <div v-if="state.loading" class="mx-select__loading"><Icon icon="spinner" spin></Icon></div>
+        <div v-else-if="filterOptions?.length === 0" class="mx-select__nodata">no match data</div>
+        <ul v-else class="mx-select__menu">
           <template v-for="(item, index) in filterOptions" :key="index">
             <li
               class="mx-select__menu-item"
@@ -62,7 +64,7 @@ import RenderVNode from '../Common/RenderVNode';
 import { computed, reactive, ref, watch, type Ref } from 'vue';
 import type { TooltipInstance } from '../Tooltip/types';
 import type { InputInstance } from '../Input/types';
-import { isFunction } from 'lodash-es';
+import { isFunction, debounce } from 'lodash-es';
 defineOptions({ name: 'MxSelect' });
 const props = defineProps<SelectProps>();
 const emits = defineEmits<SelectEmits>();
@@ -72,6 +74,7 @@ const isDropdownShow = ref(false);
 const tooltipRef = ref() as Ref<TooltipInstance>;
 const inputRef = ref() as Ref<InputInstance>;
 const filterOptions = ref(props.options);
+const timeout = computed(() => (props.remote ? 300 : 0));
 watch(
   () => props.options,
   (newValue) => {
@@ -106,20 +109,35 @@ const initialOption = findOption();
 const state = reactive<SelectStates>({
   inputValue: initialOption ? initialOption.label : '',
   selectedOption: initialOption ? initialOption : null,
-  isHover: false
+  isHover: false,
+  loading: false
 });
 
-const generateFilterOptions = (searchValue: string) => {
+const generateFilterOptions = async (searchValue: string) => {
   if (!props.filterable) return;
   // 自定义搜索方法
   if (props.filterMethod && isFunction(props.filterMethod)) {
     filterOptions.value = props.filterMethod(searchValue);
+  } else if (props.remote && props.remoteMethod && isFunction(props.remoteMethod)) {
+    // 远程搜索
+    state.loading = true;
+    try {
+      filterOptions.value = await props.remoteMethod(searchValue);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      state.loading = false;
+    }
   } else {
     // 默认搜索
     filterOptions.value = props.options?.filter((item) => item.label.includes(searchValue));
   }
 };
 const onFilter = () => generateFilterOptions(state.inputValue);
+const debounceOnFilter = debounce(() => {
+  onFilter();
+}, timeout.value);
+
 const filterPlaceholder = computed(() => {
   if (props.filterable && state.selectedOption && isDropdownShow) {
     return state.selectedOption.label;

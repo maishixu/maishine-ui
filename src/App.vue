@@ -21,6 +21,14 @@
       ]"
       filterable
     ></Select>
+    <Select
+      clearable
+      v-model="SelectValue3"
+      placeholder="远程搜索"
+      filterable
+      remote
+      :remote-method="remoteFilter"
+    ></Select>
   </div>
   <div>
     <Switch
@@ -132,7 +140,76 @@ import Select from './components/Select/Select.vue';
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 import type { SelectOption } from './components/Select/types';
-
+const states = [
+  'Alabama',
+  'Alaska',
+  'Arizona',
+  'Arkansas',
+  'California',
+  'Colorado',
+  'Connecticut',
+  'Delaware',
+  'Florida',
+  'Georgia',
+  'Hawaii',
+  'Idaho',
+  'Illinois',
+  'Indiana',
+  'Iowa',
+  'Kansas',
+  'Kentucky',
+  'Louisiana',
+  'Maine',
+  'Maryland',
+  'Massachusetts',
+  'Michigan',
+  'Minnesota',
+  'Mississippi',
+  'Missouri',
+  'Montana',
+  'Nebraska',
+  'Nevada',
+  'New Hampshire',
+  'New Jersey',
+  'New Mexico',
+  'New York',
+  'North Carolina',
+  'North Dakota',
+  'Ohio',
+  'Oklahoma',
+  'Oregon',
+  'Pennsylvania',
+  'Rhode Island',
+  'South Carolina',
+  'South Dakota',
+  'Tennessee',
+  'Texas',
+  'Utah',
+  'Vermont',
+  'Virginia',
+  'Washington',
+  'West Virginia',
+  'Wisconsin',
+  'Wyoming'
+];
+const remoteFilter = (value: string): Promise<SelectOption[]> => {
+  return new Promise((resolve) => {
+    if (value) {
+      setTimeout(() => {
+        const options = states
+          .filter((item) => {
+            return item.toLowerCase().includes(value.toLowerCase());
+          })
+          .map((label) => {
+            return { label: label, value: label };
+          });
+        resolve(options);
+      }, 500);
+    } else {
+      resolve([]);
+    }
+  });
+};
 const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
 const InputValue1 = ref('test1');
@@ -140,7 +217,7 @@ const InputValue2 = ref('test2');
 const SwitchValue = ref('wrong');
 const SelectValue = ref('value1');
 const SelectValue2 = ref('');
-
+const SelectValue3 = ref('');
 const customSelectRender = (option: SelectOption) => {
   return h('b', option.label);
 };

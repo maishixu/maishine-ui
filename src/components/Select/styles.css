@@ -30,6 +30,14 @@
       }
     }
   }
+  .mx-select__loading,
+  .mx-select__nodata {
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+    color: var(--mx-text-color-secondary);
+    font-size: var(--mx-select-item-font-size);
+  }
   .mx-select__menu {
     list-style: none;
     margin: 6px 0;
