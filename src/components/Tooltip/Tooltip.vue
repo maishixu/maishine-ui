@@ -98,6 +98,9 @@ useClickOutside(popperContainerNode, () => {
   if (props.trigger === 'click' && isOpen.value && !props.manual) {
     close();
   }
+  if (isOpen.value) {
+    emits('click-outside', true);
+  }
 });
 // 监视 trigger/manual 变化重新绑定事件
 watch(

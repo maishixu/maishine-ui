@@ -13,6 +13,7 @@ export interface TooltipProps {
 // 事件
 export interface TooltipEmit {
   (e: 'visible-change', value: boolean): void;
+  (e: 'click-outside', value: boolean): void;
 }
 // 实例方法
 export interface TooltipInstance {

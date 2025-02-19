@@ -14,6 +14,10 @@
   .mx-tooltip__popper {
     padding: 0;
   }
+  /* 聚焦时外观变化 */
+  .mx-input.is-focus .mx-input__wrapper {
+    box-shadow: 0 0 0 1px var(--mx-select-input-focus-border-color);
+  }
   .mx-input__inner {
     cursor: pointer;
   }

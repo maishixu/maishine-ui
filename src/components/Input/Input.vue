@@ -35,7 +35,7 @@
           v-model="innerValue"
           ref="inputRef"
           @input="handelInput"
-          @click="handleFocus"
+          @focus="handleFocus"
           @blur="handleBlur"
           @change="handleChange"
         />

@@ -1,7 +1,19 @@
 <template>
   <div class="mx-select" :class="{ 'is-disabled': disabled }" @click="toggleDropdown">
-    <Tooltip placement="bottom-start" manual ref="tooltipRef" :popper-options="popperOptions">
-      <Input v-model="state.inputValue" :disabled="disabled" :placeholder="placeholder"></Input>
+    <Tooltip
+      placement="bottom-start"
+      manual
+      ref="tooltipRef"
+      :popper-options="popperOptions"
+      @click-outside="controlDropdown(false)"
+    >
+      <Input
+        v-model="state.inputValue"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        readonly
+        ref="inputRef"
+      ></Input>
       <template #content>
         <ul class="mx-select__menu">
           <template v-for="(item, index) in options" :key="index">
@@ -29,9 +41,16 @@ import Tooltip from '../Tooltip/Tooltip.vue';
 import Input from '../Input/Input.vue';
 import { reactive, ref, type Ref } from 'vue';
 import type { TooltipInstance } from '../Tooltip/types';
+import type { InputInstance } from '../Input/types';
 defineOptions({ name: 'MxSelect' });
 const props = defineProps<SelectProps>();
 const emits = defineEmits<SelectEmits>();
+
+const isDropdownShow = ref(false);
+
+const tooltipRef = ref() as Ref<TooltipInstance>;
+const inputRef = ref() as Ref<InputInstance>;
+
 const popperOptions: any = {
   modifiers: [
     {
@@ -61,8 +80,6 @@ const state = reactive<SelectStates>({
   selectedOption: initialOption ? initialOption : null
 });
 
-const isDropdownShow = ref(false);
-const tooltipRef = ref() as Ref<TooltipInstance>;
 const controlDropdown = (show: boolean) => {
   if (show) tooltipRef.value.show();
   else tooltipRef.value.hide();
@@ -81,6 +98,7 @@ const itemSelect = (e: SelectOption) => {
   if (e.disabled) return;
   state.inputValue = e.label;
   state.selectedOption = e;
+  inputRef.value.ref.focus();
   emits('change', e.value);
   emits('update:modelValue', e.value);
 };
