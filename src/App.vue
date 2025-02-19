@@ -1,12 +1,25 @@
 <template>
   <div>
     <Select
+      clearable
       v-model="SelectValue"
       :options="[
         { label: 'label1', value: 'value1' },
         { label: 'label2', value: 'value2' },
         { label: 'label3', value: 'value3', disabled: true }
       ]"
+      :render-label="customSelectRender"
+    ></Select>
+    <Select
+      clearable
+      v-model="SelectValue2"
+      placeholder="select"
+      :options="[
+        { label: 'label1', value: 'value1' },
+        { label: 'label2', value: 'value2' },
+        { label: 'label3', value: 'value3', disabled: true }
+      ]"
+      filterable
     ></Select>
   </div>
   <div>
@@ -118,6 +131,7 @@ import Switch from './components/Switch/Switch.vue';
 import Select from './components/Select/Select.vue';
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
+import type { SelectOption } from './components/Select/types';
 
 const openedValue = ref<NameType[]>(['1']);
 const DropdownRef = ref<DropdownInstance | null>(null);
@@ -125,6 +139,11 @@ const InputValue1 = ref('test1');
 const InputValue2 = ref('test2');
 const SwitchValue = ref('wrong');
 const SelectValue = ref('value1');
+const SelectValue2 = ref('');
+
+const customSelectRender = (option: SelectOption) => {
+  return h('b', option.label);
+};
 onMounted(() => {
   createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
