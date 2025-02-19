@@ -42,7 +42,6 @@ let popperInstance: null | Instance = null;
 const popperOptions = computed(() => {
   return {
     placement: props.placement,
-    ...props.popperOptions,
     modifiers: [
       {
         name: 'offset',
@@ -50,7 +49,8 @@ const popperOptions = computed(() => {
           offset: [0, 8]
         }
       }
-    ]
+    ],
+    ...props.popperOptions
   };
 });
 // click 函数
