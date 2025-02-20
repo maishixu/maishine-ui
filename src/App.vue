@@ -1,5 +1,19 @@
 <template>
   <div>
+    <Form :model="model" :rules="formrules" ref="formRef">
+      <FormItem label="input-label-1" prop="email">
+        <template #label="{ label }">
+          <b>{{ label }}</b>
+        </template>
+        <Input v-model="model.email"></Input>
+      </FormItem>
+      <FormItem label="input-label-2" prop="password">
+        <Input v-model="model.password"></Input>
+      </FormItem>
+    </Form>
+    <Button @click="validate">全部验证</Button>
+  </div>
+  <div>
     <Select
       clearable
       v-model="SelectValue"
@@ -124,7 +138,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { h, onMounted, ref } from 'vue';
+import { h, onMounted, reactive, ref } from 'vue';
 
 import Button from './components/Button/Button.vue';
 import Collapse from './components/Collapse/Collapse.vue';
@@ -137,9 +151,54 @@ import { createMessage } from './components/Message/method';
 import Input from './components/Input/Input.vue';
 import Switch from './components/Switch/Switch.vue';
 import Select from './components/Select/Select.vue';
+import Form from './components/Form/Form.vue';
+import FormItem from './components/Form/FormItem.vue';
 import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 import type { SelectOption } from './components/Select/types';
+import type { FormRules } from './components/Form/types';
+
+const model = reactive({
+  email: '',
+  password: '',
+  test: ''
+});
+const formrules: FormRules = {
+  email: [
+    {
+      type: 'email', // 这里确保是 RuleType 中定义的类型
+      required: true
+    },
+    {
+      type: 'string',
+      required: true
+    }
+  ],
+  password: [
+    {
+      type: 'string',
+      required: true,
+      trigger: 'input'
+    }
+  ],
+  test: [
+    {
+      type: 'string',
+      required: true,
+      min: 3,
+      max: 5
+    }
+  ]
+};
+const formRef = ref();
+const validate = async () => {
+  try {
+    await formRef.value.validate();
+    console.log('passed!');
+  } catch (e) {
+    console.log('the error', e);
+  }
+};
 const states = [
   'Alabama',
   'Alaska',

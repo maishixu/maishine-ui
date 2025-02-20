@@ -2,7 +2,7 @@ import type { VNode } from 'vue';
 
 export interface SelectOption {
   label: string;
-  value: string;
+  value: string | number;
   disabled?: boolean;
 }
 export type RenderLabelFunc = (option: SelectOption) => VNode;
@@ -21,8 +21,8 @@ export interface SelectProps {
   remoteMethod?: CustomRemoteFunc;
 }
 export interface SelectEmits {
-  (e: 'update:modelValue', value: string): void;
-  (e: 'change', value: string): void;
+  (e: 'update:modelValue', value: string | number): void;
+  (e: 'change', value: string | number): void;
   (e: 'visible-change', value: boolean): void;
   (e: 'clear'): void;
 }

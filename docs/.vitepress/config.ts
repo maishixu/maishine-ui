@@ -28,6 +28,7 @@ export default defineConfig({
           { text: 'Button 按钮', link: '/components/button' },
           { text: 'Collapse 折叠面板', link: '/components/collapse' },
           { text: 'Input 输入框', link: '/components/input' },
+          { text: 'Select 选择器', link: '/components/select' },
           { text: 'Switch 开关', link: '/components/switch' }
         ]
       }

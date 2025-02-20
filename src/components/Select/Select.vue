@@ -77,12 +77,29 @@ const tooltipRef = ref() as Ref<TooltipInstance>;
 const inputRef = ref() as Ref<InputInstance>;
 const filterOptions = ref(props.options);
 const timeout = computed(() => (props.remote ? 300 : 0));
-watch(
-  () => props.options,
-  (newValue) => {
-    filterOptions.value = newValue;
-  }
-);
+
+// 1.初始化
+const findOption = () => {
+  const option = props.options?.find((item) => item.value === props.modelValue);
+  return option;
+};
+
+const initialOption = ref(findOption());
+/* 小坑：当把 props 的值作为初始值赋值给响应式对象时，一定要 watch 原始值的修改，然后更新本地响应式对象 */
+watch(props, () => {
+  initialOption.value = findOption();
+  filterOptions.value = props.options;
+});
+
+const state = reactive<SelectStates>({
+  inputValue: initialOption.value ? initialOption.value.label : '',
+  selectedOption: initialOption.value ? initialOption.value : null,
+  isHover: false,
+  loading: false,
+  highlightIndex: -1
+});
+
+// 2.设置下拉框的宽度和父元素宽度相等
 const popperOptions: any = {
   modifiers: [
     {
@@ -92,7 +109,6 @@ const popperOptions: any = {
       }
     },
     {
-      // 设置下拉框的宽度和父元素宽度相等
       name: 'sameWidth',
       enabled: true,
       fn: ({ state }: { state: any }) => {
@@ -104,19 +120,7 @@ const popperOptions: any = {
   ]
 };
 
-const findOption = () => {
-  const option = props.options?.find((item) => item.value === props.modelValue);
-  return option;
-};
-const initialOption = findOption();
-const state = reactive<SelectStates>({
-  inputValue: initialOption ? initialOption.label : '',
-  selectedOption: initialOption ? initialOption : null,
-  isHover: false,
-  loading: false,
-  highlightIndex: -1
-});
-
+// 3. 支持搜索功能
 const generateFilterOptions = async (searchValue: string) => {
   if (!props.filterable) return;
   // 自定义搜索方法
@@ -142,7 +146,8 @@ const generateFilterOptions = async (searchValue: string) => {
 const debounceOnFilter = debounce(() => {
   generateFilterOptions(state.inputValue);
 }, timeout.value);
-// 计算占位符
+
+// 4. 计算 placeholder
 const filterPlaceholder = computed(() => {
   // 假如支持筛选功能
   if (props.filterable && state.selectedOption && isDropdownShow) {
@@ -153,9 +158,10 @@ const filterPlaceholder = computed(() => {
     return props.placeholder;
   }
 });
-// 控制开关
+
+// 5.控制开关
 const controlDropdown = (value: boolean) => {
-  // 1.打开
+  // 5.1 打开
   if (value) {
     // 如果时 filter 模式，先清空值然后重新过滤
     if (props.filterable) {
@@ -164,7 +170,7 @@ const controlDropdown = (value: boolean) => {
     }
     tooltipRef.value.show();
   }
-  // 2.关闭
+  // 5.2 关闭
   else {
     if (props.filterable) {
       state.inputValue = state.selectedOption ? state.selectedOption.label : '';
@@ -175,7 +181,7 @@ const controlDropdown = (value: boolean) => {
   isDropdownShow.value = value;
   emits('visible-change', value);
 };
-// 翻转状态
+// 6.翻转状态
 const toggleDropdown = () => {
   if (props.disabled) return;
   if (isDropdownShow.value) {
@@ -184,7 +190,7 @@ const toggleDropdown = () => {
     controlDropdown(true);
   }
 };
-// 选择功能函数
+// 7.点击选择函数
 const itemSelect = (e: SelectOption) => {
   if (e.disabled) return;
   state.inputValue = e.label;
@@ -193,7 +199,7 @@ const itemSelect = (e: SelectOption) => {
   emits('change', e.value);
   emits('update:modelValue', e.value);
 };
-// 支持一键清空
+// 8.支持一键清空
 const showClearIcon = computed(() => {
   return props.clearable && state.isHover && state.inputValue && state.selectedOption;
 });

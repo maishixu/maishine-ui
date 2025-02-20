@@ -90,9 +90,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch, type Ref } from 'vue';
+import { computed, inject, nextTick, ref, watch, type Ref } from 'vue';
 import type { InputProps, InputEmits } from './types';
 import Icon from '../Icon/Icon.vue';
+import { formItemContextKey } from '../Form/types';
 
 defineOptions({ name: 'MxInput', inheritAttrs: false });
 const props = withDefaults(defineProps<InputProps>(), { type: 'text' });
@@ -106,10 +107,7 @@ watch(
     innerValue.value = props.modelValue;
   }
 );
-const handelInput = () => {
-  emits('update:modelValue', innerValue.value);
-  emits('input', innerValue.value);
-};
+
 // 一键清空
 const isFocus = ref(false);
 const showClear = computed(() => {
@@ -126,9 +124,22 @@ const handleFocus = (e: FocusEvent) => {
   isFocus.value = true;
   emits('focus', e);
 };
+// 验证功能
+const formItemContext = inject(formItemContextKey, null);
+const runValidate = async (trigger: string) => {
+  try {
+    await formItemContext?.validate(trigger);
+  } catch {}
+};
+const handelInput = () => {
+  emits('update:modelValue', innerValue.value);
+  emits('input', innerValue.value);
+  runValidate('input');
+};
 const handleBlur = (e: FocusEvent) => {
   isFocus.value = false;
   emits('blur', e);
+  runValidate('blur');
 };
 // 隐藏密码
 const isPasswordVisible = ref(false);
@@ -140,6 +151,7 @@ const togglePasswordVisible = () => {
 };
 // change 事件：修改值且失去焦点时触发
 const handleChange = () => {
+  runValidate('change');
   emits('change', innerValue.value);
 };
 // 保持焦点
