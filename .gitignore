@@ -9,7 +9,12 @@ lerna-debug.log*
 
 node_modules
 .DS_Store
-dist
+# 忽略根目录下的 dist 文件夹
+/dist/
+
+# 允许其他目录中的 dist 文件夹不被忽略
+!*/dist/
+
 dist-ssr
 coverage
 *.local
