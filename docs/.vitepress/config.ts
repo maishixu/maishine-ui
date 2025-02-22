@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: 'mx-element',
   title: 'X-Element',
   description: 'A VitePress Site',
   vite: {
