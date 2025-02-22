@@ -11,7 +11,9 @@
         <Input v-model="model.password"></Input>
       </FormItem>
     </Form>
-    <Button @click="validate">全部验证</Button>
+    <Button @click.prevent="validate">全部验证</Button>
+    <Button @click.prevent="clearValidate">清空验证</Button>
+    <Button @click.prevent="resetFields">重置所有</Button>
   </div>
   <div>
     <Select
@@ -159,26 +161,29 @@ import type { SelectOption } from './components/Select/types';
 import type { FormRules } from './components/Form/types';
 
 const model = reactive({
-  email: '',
+  email: '11',
   password: '',
   test: ''
 });
 const formrules: FormRules = {
   email: [
     {
-      type: 'email', // 这里确保是 RuleType 中定义的类型
-      required: true
-    },
-    {
-      type: 'string',
-      required: true
+      type: 'string', // 这里确保是 RuleType 中定义的类型
+      required: true,
+      trigger: 'blur'
     }
   ],
   password: [
     {
       type: 'string',
       required: true,
-      trigger: 'input'
+      trigger: 'blur'
+    },
+    {
+      // 自定义校验规则
+      validator: (rule, value) => value === model.email,
+      trigger: 'blur',
+      message: '两次密码不一致'
     }
   ],
   test: [
@@ -198,6 +203,12 @@ const validate = async () => {
   } catch (e) {
     console.log('the error', e);
   }
+};
+const clearValidate = () => {
+  formRef.value.clearValidate();
+};
+const resetFields = () => {
+  formRef.value.resetFields();
 };
 const states = [
   'Alabama',

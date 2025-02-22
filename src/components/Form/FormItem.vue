@@ -4,7 +4,8 @@
     :class="{
       'is-error': validateState.state === 'error',
       'is-success': validateState.state === 'success',
-      'is-loading': validateState.loading === true
+      'is-loading': validateState.loading === true,
+      'is-required': isRequired
     }"
   >
     <label class="mx-form-item__label">
@@ -12,13 +13,12 @@
         {{ label }}
       </slot>
     </label>
-    <slot :validate="validate"></slot>
-    <div class="mx-form-item__error-msg" v-if="validateState.state === 'error'">
-      {{ validateState.errorMsg }}
+    <div class="mx-form-item__content">
+      <slot :validate="validate"></slot>
+      <div class="mx-form-item__error-msg" v-if="validateState.state === 'error'">
+        {{ validateState.errorMsg }}
+      </div>
     </div>
-
-    <span>{{ innerValue }}</span>
-    <span>{{ itemRules }}</span>
   </div>
 </template>
 
@@ -28,8 +28,10 @@ import {
   formContextKey,
   formItemContextKey,
   type FormItemContext,
+  type FormItemInstance,
   type FormItemProps,
-  type FormValidateFailure
+  type FormValidateFailure,
+  type ValidateStatus
 } from './types';
 import { isNil } from 'lodash-es';
 import Schema from 'async-validator';
@@ -37,6 +39,7 @@ import Schema from 'async-validator';
 defineOptions({ name: 'MxFormItem' });
 const props = defineProps<FormItemProps>();
 
+let initialValue: any = null;
 const formContext = inject(formContextKey);
 
 const innerValue = computed(() => {
@@ -56,7 +59,12 @@ const itemRules = computed(() => {
     return [];
   }
 });
-const validateState = reactive({
+
+const isRequired = computed(() => {
+  return itemRules.value.some((rule) => rule.required);
+});
+
+const validateState: ValidateStatus = reactive({
   state: 'init',
   loading: false,
   errorMsg: ''
@@ -97,20 +105,41 @@ const validate = async (trigger: string) => {
       });
   }
 };
+const clearValidate = () => {
+  validateState.state = 'init';
+  validateState.loading = false;
+  validateState.errorMsg = '';
+};
+const resetField = () => {
+  clearValidate();
+  const model = formContext?.model;
+  if (model && props.prop && !isNil(model[props.prop])) {
+    model[props.prop] = initialValue;
+  }
+};
 const context: FormItemContext = {
   validate,
-  prop: props.prop || ''
+  prop: props.prop || '',
+  clearValidate,
+  resetField
 };
 provide(formItemContextKey, context);
 onMounted(() => {
   if (props.prop) {
     formContext?.addField(context);
+    initialValue = innerValue.value;
   }
 });
 onUnmounted(() => {
   if (props.prop) {
     formContext?.removeField(context);
   }
+});
+defineExpose<FormItemInstance>({
+  validate,
+  resetField,
+  clearValidate,
+  validateState
 });
 </script>
 

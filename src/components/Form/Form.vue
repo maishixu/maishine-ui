@@ -26,7 +26,14 @@ const addField: FormContext['addField'] = (field) => {
 const removeField: FormContext['removeField'] = (field) => {
   fields.splice(fields.indexOf(field), 1);
 };
-
+const clearValidate = (keys: string[] = []) => {
+  const filterArr = keys.length > 0 ? fields.filter((field) => keys.includes(field.prop)) : fields;
+  filterArr.forEach((field) => field.clearValidate());
+};
+const resetFields = (keys: string[] = []) => {
+  const filterArr = keys.length > 0 ? fields.filter((field) => keys.includes(field.prop)) : fields;
+  filterArr.forEach((field) => field.resetField());
+};
 const validate = async () => {
   let validationErrors: ValidateFieldsError = {};
   for (const field of fields) {
@@ -50,7 +57,9 @@ provide(formContextKey, {
   addField
 });
 defineExpose<FormInstance>({
-  validate
+  validate,
+  clearValidate,
+  resetFields
 });
 </script>
 

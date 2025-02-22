@@ -6,6 +6,7 @@
   --mx-popover-border-color: var(--mx-border-color);
   --mx-popover-padding: 12px;
   --mx-popover-border-radius: 4px;
+  /* 导致子元素设置100%会失效 */
   display: inline-block;
 }
 .mx-tooltip {
