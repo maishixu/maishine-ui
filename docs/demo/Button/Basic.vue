@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { Button } from 'x-element-plus';
+import Button from '@/components/Button/Button.vue';
 import Icon from '@/components/Icon/Icon.vue';
 </script>
 

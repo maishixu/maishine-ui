@@ -6,6 +6,6 @@
     <Alert type="danger">this is the alert</Alert>
   </div>
 </template>
-<script setup lang="ts">
-import { Alert } from 'x-element-plus';
+<script setup>
+import Alert from '@/components/Alert/Alert.vue';
 </script>
