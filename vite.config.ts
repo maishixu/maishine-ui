@@ -27,7 +27,6 @@ export default defineConfig({
         '@fortawesome/free-solid-svg-icons',
         '@fortawesome/vue-fontawesome'
       ],
-
       output: {
         exports: 'named',
         globals: {

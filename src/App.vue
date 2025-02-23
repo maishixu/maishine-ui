@@ -95,7 +95,7 @@
     <Button ref="buttonRef" @click="DropdownRef?.show">Test Button</Button>
     <Button plain @click="DropdownRef?.hide">Plain Button</Button>
     <Button round>Round Button</Button>
-    <Button circle>MX</Button>
+    <Button circle @click="createNotificationButton">MX</Button>
     <Button disabled>Disabled Button</Button><br /><br />
     <Button type="primary">Primary</Button>
     <Button type="success">Success</Button>
@@ -159,6 +159,7 @@ import type { NameType } from './components/Collapse/types';
 import type { DropdownInstance } from './components/Dropdown/types';
 import type { SelectOption } from './components/Select/types';
 import type { FormRules } from './components/Form/types';
+import { createNotification } from './components/Notification/method';
 
 const model = reactive({
   email: '11',
@@ -291,10 +292,19 @@ const SelectValue3 = ref('');
 const customSelectRender = (option: SelectOption) => {
   return h('b', option.label);
 };
+const createNotificationButton = () => {
+  createNotification({
+    message: 'Hello notification',
+    title: 'title 1 notification',
+    duration: 3000
+  });
+};
 onMounted(() => {
   createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
   createMessage({ message: 'hello message test 2', duration: 0, showClose: true, type: 'danger' });
+  createNotification({ message: 'Hello notification', title: 'title 1 notification', duration: 0 });
+  createNotification({ message: h('b', 'Hello '), title: 'title 1 notification', duration: 0 });
 });
 </script>
 
