@@ -1,5 +1,6 @@
 <template>
   <div class="basic block">
+    <Button>测试组件库正常运作</Button>
     <Button> hello </Button>
     <Button type="primary"> Primary </Button>
     <Button type="success"> Success </Button>
@@ -37,8 +38,8 @@
 </template>
 
 <script setup>
-import Button from '@/components/Button/Button.vue';
-import Icon from '@/components/Icon/Icon.vue';
+import { Button } from 'x-element-plus';
+import { Icon } from 'x-element-plus';
 </script>
 
 <style>
