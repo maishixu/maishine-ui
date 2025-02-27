@@ -8,7 +8,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    // 返回渲染函数
+    // 返回（执行）渲染函数
     // 渲染函数：返回虚拟 DOM(VNode) 的函数
     return () => props.vNode;
   }

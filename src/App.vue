@@ -127,6 +127,7 @@
   </div>
   <div>
     <Icon icon="star" rotation="90" type="primary"></Icon>
+    <Icon icon="star" rotation="90" type="danger"></Icon>
     <Icon icon="music" color="red"></Icon>
     <Icon icon="phone"></Icon>
   </div>

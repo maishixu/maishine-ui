@@ -5,10 +5,9 @@
       <slot></slot>
     </div>
     <!-- 内容 -->
-    <Transition :name="transition">
+    <Transition :name="transition" v-on="outerEvents">
       <div class="mx-tooltip__popper" ref="popperNode" v-if="isOpen">
-        {{ content }}
-        <slot name="content"></slot>
+        <slot name="content">{{ content }}</slot>
         <div id="arrow" data-popper-arrow></div>
       </div>
     </Transition>
@@ -27,10 +26,10 @@ defineOptions({ name: 'MxTooltip' });
 const emits = defineEmits<TooltipEmit>();
 const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
-  trigger: 'click',
+  trigger: 'hover',
   transition: 'fade',
   openDelay: 0,
-  closeDelay: 0
+  closeDelay: 200
 });
 // DOM 节点
 const isOpen = ref<boolean>(false);

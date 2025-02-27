@@ -17,8 +17,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'XElement',
-      fileName: 'x-element'
+      name: 'MaishineUI',
+      fileName: 'maishine-ui'
     },
     rollupOptions: {
       external: [
