@@ -17,7 +17,7 @@ export const createMessage = (props: CreateMessageProps) => {
     render(null, container);
   };
   const manualDestroy = () => {
-    const instance = instances.find((item) => (item.id = id));
+    const instance = instances.find((item) => item.id === id);
     if (instance) {
       instance.vm.exposed!.visible.value = false;
     }

@@ -101,7 +101,7 @@
     <Button type="success">Success</Button>
     <Button type="info">Info</Button>
     <Button type="warning">Warning</Button>
-    <Button type="danger">Danger</Button><br /><br />
+    <Button type="danger" @click="destroyMessage">Danger</Button><br /><br />
     <Button type="primary" plain>Primary</Button>
     <Button type="success" plain>Success</Button>
     <Button type="info" plain>Info</Button>
@@ -150,7 +150,7 @@ import Icon from './components/Icon/Icon.vue';
 import Alert from './components/Alert/Alert.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
 import Dropdown from './components/Dropdown/Dropdown.vue';
-import { createMessage } from './components/Message/method';
+import { createMessage, destroyAllMessage } from './components/Message/method';
 import Input from './components/Input/Input.vue';
 import Switch from './components/Switch/Switch.vue';
 import Select from './components/Select/Select.vue';
@@ -161,7 +161,9 @@ import type { DropdownInstance } from './components/Dropdown/types';
 import type { SelectOption } from './components/Select/types';
 import type { FormRules } from './components/Form/types';
 import { createNotification } from './components/Notification/method';
-
+const destroyMessage = () => {
+  destroyAllMessage();
+};
 const model = reactive({
   email: '11',
   password: '',

@@ -13,8 +13,6 @@
       <!-- 内容 -->
       <div class="mx-message__content">
         <slot>
-          <!-- 插槽的默认内容 如果有会覆盖 -->
-          {{ height }}+{{ topOffset }}+{{ bottomOffset }}
           <RenderVNode :vNode="message" v-if="message"></RenderVNode>
         </slot>
       </div>
