@@ -5,19 +5,19 @@ export interface MessageProps {
   duration?: number;
   showClose?: boolean;
   type?: 'success' | 'info' | 'warning' | 'danger';
-  onDestroy: () => void;
+  destroy: () => void;
   offset?: number;
   id: string;
   zIndex: number;
   transition?: string;
 }
 
-export type CreateMessageProps = Omit<MessageProps, 'onDestroy' | 'id' | 'zIndex'>;
+export type CreateMessageProps = Omit<MessageProps, 'destroy' | 'id' | 'zIndex'>;
 
 export interface MessageInstance {
   id: string;
   vNode: VNode;
   props: MessageProps;
   vm: ComponentInternalInstance;
-  destroy: () => void;
+  close: () => void;
 }

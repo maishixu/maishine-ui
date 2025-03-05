@@ -1,39 +1,50 @@
-# mx-element
+## 安装
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+npm i maishine-ui --save
 ```
 
-### Compile and Hot-Reload for Development
+## 开始使用
 
-```sh
-npm run dev
+#### 全局使用
+
+```js
+// 引入所有组件
+import MaishineUI from 'maishine-ui';
+// 引入样式
+import 'maishine-ui/dist/style.css';
+
+import App from './App.vue';
+// 全局使用
+createApp(App).use(MaishineUI).mount('#app');
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
+```vue
+<template>
+  <mx-button>我是 Button</mx-button>
+</template>
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
+#### 单个导入（推荐）
+
+**Maishine-UI** 提供了基于 ES Module 的开箱即用的 `Tree Shaking` 功能。你可以根据需要的组件按需导入，而不用全局安装所有组件，这样在项目打包的时候可以减轻资源文件的体积，提高性加载速度。
+
+```vue
+<template>
+  <Button>我是 Button</Button>
+</template>
+<script>
+import { Button } from 'maishine-ui';
+export default {
+  components: { Button }
+};
+</script>
 ```
+
+---
+
+- 动态主题：通过 PostCSS 和 CSS 变量支持快速切换主题色。
+- 组件交互：支持双向绑定和事件透传，提升使用灵活性。
+- 可访问性优化：注重表单组件的交互性，确保良好可访问体验。

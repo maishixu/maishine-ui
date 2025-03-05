@@ -5,7 +5,7 @@
       <slot></slot>
     </div>
     <!-- 内容 -->
-    <Transition :name="transition" v-on="outerEvents">
+    <Transition :name="transition" v-on="dropdownEvents">
       <div class="mx-tooltip__popper" ref="popperNode" v-if="isOpen">
         <slot name="content">{{ content }}</slot>
         <div id="arrow" data-popper-arrow></div>
@@ -84,12 +84,15 @@ const close = () => {
 let events: Record<string, unknown> = reactive({});
 // 绑定到外部的事件
 let outerEvents: Record<string, unknown> = reactive({});
+let dropdownEvents: Record<string, unknown> = reactive({});
 const attachEvent = () => {
   if (props.trigger === 'click') {
     events['click'] = togglePopper;
   } else if (props.trigger === 'hover') {
     events['mouseenter'] = open;
     outerEvents['mouseleave'] = close;
+    // ** 防止鼠标离开的间隙内容消失
+    dropdownEvents['mouseenter'] = open;
   }
 };
 // click outside 时隐藏
@@ -107,6 +110,7 @@ watch(
   () => {
     events = {};
     outerEvents = {};
+    dropdownEvents = {};
     if (!props.manual) {
       attachEvent();
     }

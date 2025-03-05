@@ -16,7 +16,7 @@ export const createMessage = (props: CreateMessageProps) => {
     instances.splice(idx, 1);
     render(null, container);
   };
-  const manualDestroy = () => {
+  const close = () => {
     const instance = instances.find((item) => item.id === id);
     if (instance) {
       instance.vm.exposed!.visible.value = false;
@@ -24,7 +24,7 @@ export const createMessage = (props: CreateMessageProps) => {
   };
   const newProps = {
     ...props,
-    onDestroy: destroy,
+    destroy,
     id,
     zIndex: nextZIndex()
   };
@@ -38,7 +38,7 @@ export const createMessage = (props: CreateMessageProps) => {
     vNode,
     props: newProps,
     vm: vNode.component!,
-    destroy: manualDestroy
+    close
   };
   instances.push(instance);
   return instance;
@@ -54,8 +54,8 @@ export const getLastBottomOffset = (id: string) => {
   else return instances[idx - 1].vm.exposed!.bottomOffset.value;
 };
 // 4.清空所有实例
-export const destroyAllMessage = () => {
+export const closeAllMessage = () => {
   instances.forEach((item) => {
-    item.destroy();
+    item.close();
   });
 };

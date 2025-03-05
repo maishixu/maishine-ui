@@ -59,7 +59,7 @@ export const getLastBottomOffset = (id: string) => {
   }
 };
 
-export const closeAll = () => {
+export const closeAllNotification = () => {
   instances.forEach((instance) => {
     instance.close();
   });

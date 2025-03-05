@@ -62,7 +62,7 @@ const startTimer = () => {
   if (props.duration === 0) return; // 一直展示
   timer = setTimeout(() => {
     visible.value = false;
-    props.onDestroy();
+    props.destroy();
   }, props.duration);
 };
 // 2.2 清空计时器
@@ -71,7 +71,7 @@ const clearTimer = () => {
 };
 // 2.3 销毁实例
 const destroyComponent = () => {
-  props.onDestroy();
+  props.destroy();
 };
 // 2.4 监听键盘事件
 const keydown = (e: Event) => {

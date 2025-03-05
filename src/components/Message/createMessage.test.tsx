@@ -22,7 +22,7 @@ describe('createMessage', () => {
     const instance = createMessage({ message: 'hello message 1', duration: 0 });
     await rAF();
     expect(document.querySelector('.mx-message')).toBeTruthy();
-    instance.destroy();
+    instance.close();
     await rAF();
     expect(document.querySelector('.mx-message')).toBeFalsy();
   });
@@ -32,9 +32,9 @@ describe('createMessage', () => {
     await rAF();
     const instances = document.querySelectorAll('.mx-message');
     expect(instances.length).toBe(2);
-    instance1.destroy();
+    instance1.close();
     await rAF();
-    instance2.destroy();
+    instance2.close();
     await rAF();
     expect(document.querySelector('.mx-message')).toBeFalsy();
   });

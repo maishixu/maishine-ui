@@ -154,7 +154,7 @@ const handleChange = () => {
   runValidate('change');
   emits('change', innerValue.value);
 };
-// 保持焦点
+// 保持焦点，保证点击清除后仍然保持焦点
 const keepFocus = async () => {
   await nextTick();
   inputRef.value.focus();

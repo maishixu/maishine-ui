@@ -101,7 +101,7 @@
     <Button type="success">Success</Button>
     <Button type="info">Info</Button>
     <Button type="warning">Warning</Button>
-    <Button type="danger" @click="destroyMessage">Danger</Button><br /><br />
+    <Button type="danger">Danger</Button><br /><br />
     <Button type="primary" plain>Primary</Button>
     <Button type="success" plain>Success</Button>
     <Button type="info" plain>Info</Button>
@@ -139,6 +139,7 @@
     <Alert type="info" title="Custom Text Alert" closeText="关闭"></Alert>
     <Alert type="info" title="UnClosable Alert" :closable="false" effect="dark"></Alert>
   </div>
+  <Switch v-model="test" size="small" />
 </template>
 <script setup lang="ts">
 import { h, onMounted, reactive, ref } from 'vue';
@@ -150,7 +151,7 @@ import Icon from './components/Icon/Icon.vue';
 import Alert from './components/Alert/Alert.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
 import Dropdown from './components/Dropdown/Dropdown.vue';
-import { createMessage, destroyAllMessage } from './components/Message/method';
+import { createMessage } from './components/Message/method';
 import Input from './components/Input/Input.vue';
 import Switch from './components/Switch/Switch.vue';
 import Select from './components/Select/Select.vue';
@@ -161,9 +162,14 @@ import type { DropdownInstance } from './components/Dropdown/types';
 import type { SelectOption } from './components/Select/types';
 import type { FormRules } from './components/Form/types';
 import { createNotification } from './components/Notification/method';
-const destroyMessage = () => {
-  destroyAllMessage();
-};
+// let message1 = {};
+// const destroyMessage = () => {
+//   closeAll();
+// };
+// const closeOneMessage = () => {
+//   message1.close();
+// };
+const test = ref(false)
 const model = reactive({
   email: '11',
   password: '',
@@ -303,10 +309,19 @@ const createNotificationButton = () => {
   });
 };
 onMounted(() => {
-  createMessage({ message: 'hello message test', duration: 0, showClose: true, type: 'info' });
+  createMessage({
+    message: 'hello message test',
+    duration: 0,
+    showClose: true,
+    type: 'info'
+  });
   createMessage({ message: 'hello message test 1', duration: 0, showClose: true, type: 'success' });
   createMessage({ message: 'hello message test 2', duration: 0, showClose: true, type: 'danger' });
-  createNotification({ message: 'Hello notification', title: 'title 1 notification', duration: 0 });
+  createNotification({
+    message: 'Hello notification',
+    title: 'title 1 notification',
+    duration: 0
+  });
   createNotification({ message: h('b', 'Hello '), title: 'title 1 notification', duration: 0 });
 });
 </script>

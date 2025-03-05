@@ -1,12 +1,9 @@
-import Notification from '@/components/Notification/Notification.vue'
-import { createNotification, closeAll } from '@/components/Notification/method'
+import Notification from '@/components/Notification/Notification.vue';
+import { createNotification, closeAllNotification } from '@/components/Notification/method';
 Notification.install = (app: any) => {
-  app.component(Notification.name, Notification)
-}
+  app.component(Notification.name, Notification);
+};
 
-export default Notification
-export {
-  createNotification,
-  closeAll
-}
-export * from './types'
+export default Notification;
+export { createNotification, closeAllNotification };
+export * from './types';

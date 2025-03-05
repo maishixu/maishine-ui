@@ -6,7 +6,8 @@ import Collapse, { CollapseItem } from '@/components/Collapse';
 import Dropdown from '@/components/Dropdown';
 import Form, { FormItem } from '@/components/Form';
 import Icon from '@/components/Icon';
-import Message, { createMessage, destroyAllMessage } from '@/components/Message';
+import Message, { createMessage, closeAllMessage } from '@/components/Message';
+import Notification, { createNotification, closeAllNotification } from '@/components/Notification';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import Switch from '@/components/Switch';
@@ -24,6 +25,7 @@ const components = [
   FormItem,
   Icon,
   Message,
+  Notification,
   Input,
   Select,
   Switch,
@@ -50,7 +52,9 @@ export {
   Switch,
   Tooltip,
   createMessage,
-  destroyAllMessage
+  createNotification,
+  closeAllMessage,
+  closeAllNotification
 };
 
 export default {
